@@ -43,7 +43,7 @@ jq.asm.bundle.min.js: node_modules/.bin/uglifyjs jq.asm.bundle.js
 
 jq.wasm.js: jq/jq.o pre.js post.js
 	cd jq && \
-	  emcc -O3 -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s MODULARIZE_INSTANCE=1 -s EXPORT_NAME="jq" -s WASM=1 --pre-js ../pre.js --post-js ../post.js jq.o -o ../jq.wasm.js
+	  emcc -O3 -s "BINARYEN_TRAP_MODE='clamp'" -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s MODULARIZE_INSTANCE=1 -s EXPORT_NAME="jq" -s WASM=1 --pre-js ../pre.js --post-js ../post.js jq.o -o ../jq.wasm.js
 
 jq.wasm.min.js: node_modules/.bin/uglifyjs jq.wasm.js
 	./node_modules/.bin/uglifyjs jq.wasm.js -m -c -o jq.wasm.min.js
